@@ -1,0 +1,39 @@
+<script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script>
+(async ($) => {
+    const fetchLinkToken = async () => { 
+        const response = await fetch('/create-link-token'); // This fetches the link token from the "back-end" 
+        const { linkToken } = await response.json(); // Extracts the link token from the response 
+        return linkToken;
+    };
+
+    // Creates Plaid Link 
+    const handler = Plaid.create({
+        token: await fetchLinkToken(), // Calls the function above 
+        onSuccess: async (publicToken, metadata) => { // Returns the public token and metadata connected to accounts 
+            console.log(publicToken);
+            console.log(metadata);
+            await fetch('/token-exchange', { // Sends public token to _____ 
+                method: 'POST',
+                body: JSON.stringify({ publicToken }),
+                headers: {
+                    'Content-Type': 'application/json', // Lets us know that the content is coming in with a JSON payload 
+                },
+            });
+        },
+        // Returns metatdata when going through Plaid Link 
+         onEvent: (metadata) => {
+            console.log(metadata);
+        },
+        // This gets called if the user exits the flow 
+        onExit: (error, metadata) => {
+            console.log(error, metadata);
+        },
+    });
+    $('#plaid-button').on('click', function(e) { handler.open(); }); // Handeler for the button 
+})(jQuery);
+</script>
+
+<h1>Plaid Quick Start Workshop!</h1>
+<button id='plaid-button'>Link your account with Plaid!</button>

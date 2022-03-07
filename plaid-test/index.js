@@ -41,7 +41,10 @@
 })(jQuery);
 
 // Retrieves balance information
-// TODO: We need to request the right data and save it somewhere 
+/*
+TODO: We need to request the right data and save it somewhere (NOTE: we have to ask him to add the 
+things we want to the server)
+*/
 const getBalance = async function () {
     const response = await fetch("https://birdboombox.com/api/getBalance", {
         method: "POST",

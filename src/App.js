@@ -6,6 +6,7 @@ const axios = require('axios');
 
 function format_balance_for_table(balance) {
     if(balance) {
+        localStorage.setItem('Account Balances', JSON.stringify(balance.Balance.accounts)); // This saves a JSON file to local storage
         return balance.Balance.accounts.map(acct => ({name: acct.name, type: acct.type, balance: acct.balances.current}));
     } else {
         return null;
@@ -58,6 +59,7 @@ function App() {
         </>
     );
 }
+
 
 export default App;
 

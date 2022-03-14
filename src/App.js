@@ -65,7 +65,6 @@ function App() {
     );
 }
 
-console.log(getBalances());
 
 export default App;
 

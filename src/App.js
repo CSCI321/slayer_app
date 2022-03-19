@@ -2,16 +2,14 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { usePlaidLink } from 'react-plaid-link';
+import {saveBalances} from "./Data";
 const axios = require('axios');
 
-function getBalances() {
-    let balance = JSON.stringify(localStorage.getItem('Account-Balances'));
-    return { balance }
-}
+
 
 function format_balance_for_table(balance) {
     if(balance) {
-        localStorage.setItem('Account-Balances', JSON.stringify(balance.Balance.accounts)); // This saves a JSON file to local storage
+        saveBalances(balance);
         return balance.Balance.accounts.map(acct => ({name: acct.name, type: acct.type, balance: acct.balances.current}));
     } else {
         return null;

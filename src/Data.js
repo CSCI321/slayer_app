@@ -1,13 +1,13 @@
 import {useState} from "react";
 import { usePlaidLink } from 'react-plaid-link';
 
-
-let balanceName = 'Balances';
+const BALANCE_NAME = 'Balances';
+const ACCESS_TOKEN_NAME = 'Access Token';
 const axios = require('axios');
 
 // Saves the balances to localStorage
 export function saveBalances(balance) {
-    localStorage.setItem(balanceName, JSON.stringify(balance.Balance.accounts));
+    localStorage.setItem(BALANCE_NAME, JSON.stringify(balance.Balance.accounts));
 }
 
 // Gets the balances from Plaid Servers
@@ -24,13 +24,16 @@ export function getBalances() {
 
 // Gets the balances saved to localStorage
 export function getSavedBalances() {
-    let balance = JSON.stringify(localStorage.getItem(balanceName));
+    let balance = JSON.stringify(localStorage.getItem(BALANCE_NAME));
     return { balance }
 }
 
 // Gets the Link_Token from Plaid Servers
 export function getLinkToken() {
-    return axios.get("https://birdboombox.com/api/create_link_token");
+    const [linkToken, setLinkToken] = useState(null);
+    axios.get("https://birdboombox.com/api/create_link_token")
+        .then(response => setLinkToken(response.data.link_token));
+    return linkToken;
 }
 
 // Gets the Access_Token from Plaid Servers
@@ -49,6 +52,6 @@ export function getAccessToken() {
 
 //Saves the Access_Token to localStorage
 function saveAccessToken() {
-    localStorage.setItem('Access Token', JSON.stringify(getAccessToken()))
+    localStorage.setItem(ACCESS_TOKEN_NAME, JSON.stringify(getAccessToken()))
 }
 

@@ -2,7 +2,7 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { usePlaidLink } from 'react-plaid-link';
-import { saveBalances } from "./Data";
+import { saveBalances, getBalances } from "./Data";
 const axios = require('axios');
 
 
@@ -45,7 +45,7 @@ function App() {
 
     return (
         <>
-          <Button variant="primary" onClick={() => open()}>Click me</Button>
+          <Button variant="primary" onClick={() => getBalances()}>Click me</Button>
           {balance ? (
           <Table striped border hover>
             <thead>

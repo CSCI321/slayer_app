@@ -2,9 +2,8 @@ import './App.css';
 import { useState, useEffect } from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { usePlaidLink } from 'react-plaid-link';
-import {saveBalances} from "./Data";
+import { saveBalances } from "./Data";
 const axios = require('axios');
-
 
 
 function format_balance_for_table(balance) {

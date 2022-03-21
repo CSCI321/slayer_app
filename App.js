@@ -99,7 +99,8 @@ const HomeScreen = ({navigation}) => {
       <StatusBar style="auto" />
     </View>
     <View style={styles.topRightScrn}>
-      <Text>ProfileIcon</Text>
+      <Image style={styles.ProfileImage} source={require('./logos/5.png')}>
+        </Image>
     </View>
     <View style={styles.middleScrnHome}>
       <ScrollView style={styles.scrollView}>
@@ -238,39 +239,43 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   topScrn:{
-    marginTop:50,
+    paddingTop:50,
     width: '100%',
-    height: '5%',
+    height: '10%',
+    backgroundColor: '#33d651',
   },
   topLeftScrn: {
-    marginTop: 50,
-    borderWidth: 1,
+    paddingTop: 50,
     width: '75%',
-    height: '15%',
+    height: '15.5%',
+    backgroundColor: '#33d651',
   },
   topRightScrn: {
-    marginTop: 50,
-    borderWidth: 1,
-    height: '15%',
+    paddingTop: 50,
+    height: '15.5%',
     width: '25%',
+    backgroundColor: '#33d651',
   },
   scrollView: {
     marginHorizontal: 20,
   },
   middleScrnHome: {
     width: "100%",
-    height: "69%",
+    height: "74%",
     borderWidth: 1,
+    borderColor: "green",
   },
   middleScrn: {
     width: "100%",
     height: "79%",
     borderWidth: 1,
+    borderColor: "green",
   },
   bottomScrnBoxes: {
     width: '25%',
-    height: '25%',
+    height: '15%',
     borderWidth: 1,
+    borderColor: "green",
   },
   Text: {
     color: 'black',
@@ -278,10 +283,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: "center",
   },
-  Image: {
-    height: '25%',
-    width: '15%',
+  Imagesource: {
+    height: 100,
+    width: 102,
+    resizeMode:'stretch',
   },
+  ProfileImage: {
+    height: 90,
+    width: 102,
+    resizeMode: 'stretch',
+  }
 
 });
 

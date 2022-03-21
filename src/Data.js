@@ -1,8 +1,6 @@
-import {useState} from "react";
-import { usePlaidLink } from 'react-plaid-link';
-
 const BALANCE_NAME = 'Balances';
 const ACCESS_TOKEN_NAME = 'Access Token';
+const API_URL = "https://birdboombox.com/api/";
 const axios = require('axios');
 
 // Saves the balances to localStorage
@@ -10,16 +8,19 @@ export function saveBalances(balance) {
     localStorage.setItem(BALANCE_NAME, JSON.stringify(balance.Balance.accounts));
 }
 
+export function getApiUrl() {
+    return { API_URL }
+}
+
 // Gets the balances from Plaid Servers
-export function getBalances() {
-    const [balance, setBalance] = useState(null);
-    const accessToken = getAccessToken();
+export function getBalances(accessToken) {
     if(accessToken) {
-        axios.post("https://birdboombox.com/api/getBalance",
+        return axios.post(API_URL + "getBalance",
             {"access_token": accessToken})
-            .then(response => { setBalance(response.data) });
+            .then(response => response.data.Balance.accounts);
+    } else {
+        return new Promise(() => null);
     }
-    return balance;
 }
 
 // Gets the balances saved to localStorage
@@ -30,28 +31,26 @@ export function getSavedBalances() {
 
 // Gets the Link_Token from Plaid Servers
 export function getLinkToken() {
-    const [linkToken, setLinkToken] = useState(null);
-    axios.get("https://birdboombox.com/api/create_link_token")
-        .then(response => setLinkToken(response.data.link_token));
-    return linkToken;
+    return axios.get(API_URL + "create_link_token")
+        .then(response => response.data.link_token);
 }
 
 // Gets the Access_Token from Plaid Servers
-export function getAccessToken() {
-    const [accessToken, setAccessToken] = useState(null);
-    usePlaidLink({
+
+// TODO: Make sure to put this useState where we need it
+/*export function getAccessToken() {
+    return usePlaidLink({
         token: getLinkToken(),
         onSuccess: (public_token, metadata) => {
             axios.post("https://birdboombox.com/api/exchange_public_token",
                 {"public_token": public_token})
-                .then(response => { setAccessToken(response.data.access_token) });
-        },
+                .then(response => response.data.access_token);
+        }
     });
-    return accessToken;
-}
+}*/
 
 //Saves the Access_Token to localStorage
-function saveAccessToken() {
-    localStorage.setItem(ACCESS_TOKEN_NAME, JSON.stringify(getAccessToken()))
+function saveAccessToken(accessToken) {
+    localStorage.setItem(ACCESS_TOKEN_NAME, JSON.stringify(accessToken))
 }
 

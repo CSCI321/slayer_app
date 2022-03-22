@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
     width: 102,
     resizeMode: 'stretch',
   }
-
+  
 });
 
 const PieData = [

@@ -45,9 +45,10 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
+          animationEnabled: false,
           headerShown: false
         }}>
-          <Stack.Screen name="LogScreen" component={Logscreen}/>
+          <Stack.Screen name="LogScreen"component={Logscreen}/>
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen
           name="GraphScreen"
@@ -58,7 +59,6 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
 const Logscreen = ({navigation}) => {
   const [linkToken, setLinkToken] = useState(null);
   useEffect(() => {

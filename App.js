@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity, Button } from 'react-native';
 import {
   BarChart,
   PieChart
@@ -12,7 +12,7 @@ import { saveBalances, getBalances, getLinkToken } from "./Data";
 const axios = require('axios');
 
 const Stack = createNativeStackNavigator();
-export default function App() {
+export default function App({navigation}) {
   /*
     ------------------------------- Start Plaid --------------------------------
            To call the Plaid API popup box make sure to use "open()" hook
@@ -47,6 +47,7 @@ export default function App() {
         screenOptions={{
           headerShown: false
         }}>
+          <Stack.Screen name="LogScreen" component={Logscreen}/>
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen
           name="GraphScreen"
@@ -55,8 +56,42 @@ export default function App() {
         <Stack.Screen name="BudgetScreen" component={BudgetScreen} />
       </Stack.Navigator>
     </NavigationContainer>
-
   );
+}
+
+const Logscreen = ({navigation}) => {
+  const [linkToken, setLinkToken] = useState(null);
+  useEffect(() => {
+    getLinkToken().then(lt => setLinkToken(lt));
+  }, [])
+  const [accessToken, setAccessToken] = useState(null);
+  const [balance, setBalance] = useState(null);
+
+  const { open, ready } = usePlaidLink({
+    token: linkToken,
+    onSuccess: (public_token, metadata) => {
+      axios.post("https://birdboombox.com/api/exchange_public_token",
+          {"public_token": public_token})
+          .then(response => setAccessToken(response.data.access_token));
+    }
+  });
+
+  useEffect(() => {
+    if(accessToken) {
+      getBalances(accessToken).then(b => setBalance(b));
+    }
+  }, [accessToken]);
+  return(
+    <View style={styles.screen}>
+    <View style={styles.buttonContainer}>
+  <Button title="Login" onPress={() => {
+  open();
+  navigation.navigate('HomeScreen');
+  }}>
+  </Button>
+  </View>
+  </View>
+  )
 }
 const GraphScreen = ({ navigation }) => {
   return (
@@ -324,6 +359,13 @@ const styles = StyleSheet.create({
     height: 90,
     width: 102,
     resizeMode: 'stretch',
+  },
+  buttonContainer: {
+    height:100,
+    width:"100%",
+    marginTop: "60%",
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 
 });

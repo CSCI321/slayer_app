@@ -12,7 +12,7 @@ import { saveBalances, getBalances, getLinkToken } from "./Data";
 const axios = require('axios');
 
 const Stack = createNativeStackNavigator();
-export default function App({navigation}) {
+export default function App() {
   /*
     ------------------------------- Start Plaid --------------------------------
            To call the Plaid API popup box make sure to use "open()" hook

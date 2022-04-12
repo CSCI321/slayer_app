@@ -12,6 +12,7 @@ export default function App() {
         source={require('./assets/moneyview.png')}
         style={styles.img}
       />
+      <View style={styles.backshape} />
       
       <Text style={styles.headerText} numberOfLines={2}>
         Easiest Way to Manage Your Money
@@ -36,6 +37,25 @@ const styles = StyleSheet.create({
     height: 200, 
     position: 'absolute',
     top: 200,
+  },
+  backshape: {
+    position: 'absolute',
+    bottom: -5,
+    width: 390,
+    height: 380,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 50,
+  },
+  headerText: {
+
+  },
+  bodyText: {
+    padding: 40,
+    alignContent: 'center',
+    position: 'absolute', 
+    bottom: 150, 
+
   }
 
 });
+

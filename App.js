@@ -211,7 +211,7 @@ const HomeScreen = ({ navigation }) => {
         />
       </div>
       <div class="card text-white bg-primary mb-3" style={{paddingTop:10, paddingBottom: 10}}>
-        <h4 style={{ fontWeight: 'bold' }}>Transactions</h4>
+        <h4 style={{ fontWeight: 'bold' }}>Transactions:</h4>
       </div>
       <View style={styles.whiteBackground}>
         <table class="table table-hover">
@@ -341,13 +341,6 @@ const BudgetScreen = ({ navigation }) => {
   )
 }
 const styles = StyleSheet.create({
-  alignedText: {
-    textAlign: 'center',
-  },
-  alignedText_Bold: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
   homeBudget: {
     width: 300,
     height: 300,

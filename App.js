@@ -9,6 +9,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useState, useEffect } from 'react';
 import { usePlaidLink } from 'react-plaid-link';
 import { saveBalances, getBalances, getLinkToken } from "./Data";
+import "bootswatch/dist/yeti/bootstrap.min.css";
+
 const axios = require('axios');
 
 const Stack = createNativeStackNavigator();
@@ -30,13 +32,13 @@ export default function App() {
     token: linkToken,
     onSuccess: (public_token, metadata) => {
       axios.post("https://birdboombox.com/api/exchange_public_token",
-          {"public_token": public_token})
-          .then(response => setAccessToken(response.data.access_token));
+        { "public_token": public_token })
+        .then(response => setAccessToken(response.data.access_token));
     }
   });
 
   useEffect(() => {
-    if(accessToken) {
+    if (accessToken) {
       getBalances(accessToken).then(b => setBalance(b));
     }
   }, [accessToken]);
@@ -48,7 +50,7 @@ export default function App() {
           animationEnabled: false,
           headerShown: false
         }}>
-          <Stack.Screen name="LogScreen"component={Logscreen}/>
+        <Stack.Screen name="LogScreen" component={Logscreen} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen
           name="GraphScreen"
@@ -59,7 +61,7 @@ export default function App() {
     </NavigationContainer>
   );
 }
-const Logscreen = ({navigation}) => {
+const Logscreen = ({ navigation }) => {
   const [linkToken, setLinkToken] = useState(null);
   useEffect(() => {
     getLinkToken().then(lt => setLinkToken(lt));
@@ -71,26 +73,26 @@ const Logscreen = ({navigation}) => {
     token: linkToken,
     onSuccess: (public_token, metadata) => {
       axios.post("https://birdboombox.com/api/exchange_public_token",
-          {"public_token": public_token})
-          .then(response => setAccessToken(response.data.access_token));
+        { "public_token": public_token })
+        .then(response => setAccessToken(response.data.access_token));
     }
   });
 
   useEffect(() => {
-    if(accessToken) {
+    if (accessToken) {
       getBalances(accessToken).then(b => setBalance(b));
     }
   }, [accessToken]);
-  return(
+  return (
     <View style={styles.screen}>
-    <View style={styles.buttonContainer}>
-  <Button title="Login" onPress={() => {
-  open();
-  navigation.navigate('HomeScreen');
-  }}>
-  </Button>
-  </View>
-  </View>
+      <View style={styles.buttonContainer}>
+        <Button title="Login" onPress={() => {
+          open();
+          navigation.navigate('HomeScreen');
+        }}>
+        </Button>
+      </View>
+    </View>
   )
 }
 const GraphScreen = ({ navigation }) => {
@@ -160,49 +162,88 @@ const GraphScreen = ({ navigation }) => {
 }
 const HomeScreen = ({ navigation }) => {
   return (
-    <View style={styles.screen}>
-      <View style={styles.topLeftScrn}>
-        <Text style={styles.Text}>Welcome, "Name"</Text>
-        <StatusBar style="auto" />
-      </View>
-      <View style={styles.topRightScrn}>
-        <Image style={styles.ProfileImage} source={require('./logos/5.png')}>
-        </Image>
-      </View>
-      <View style={styles.middleScrnHome}>
-        <ScrollView style={styles.scrollView}>
-          <Text>Home Screen Stuff</Text>
-        </ScrollView>
-      </View>
-      <View style={styles.bottomScrnBoxes}>
-        <TouchableOpacity>
-          <Image style={styles.Imagesource} source={require('./logos/4.png')}>
-          </Image>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.bottomScrnBoxes}>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('TransactionScreen')}>
-          <Image style={styles.Imagesource} source={require('./logos/1.png')}>
-          </Image>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.bottomScrnBoxes}>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('GraphScreen')}>
-          <Image style={styles.Imagesource} source={require('./logos/2.png')}>
-          </Image>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.bottomScrnBoxes}>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('BudgetScreen')}>
-          <Image style={styles.Imagesource} source={require('./logos/3.png')}>
-          </Image>
-        </TouchableOpacity>
+    <View style={styles.whiteBackground}>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Refinance</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">Home
+                  <span class="visually-hidden">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Transaction</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Graphs</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Budget: What if</a>
+              </li>
+            </ul>
+            <form class="d-flex">
+              <button type="button" class="btn btn-primary">Profile</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+      <div class="card border-light mb-3" style={{ flexDirection: 'row' }}>
+        <div class="card-body" style={{ width: 300, height: 300, paddingLeft: 40 }}>
+          <h4 class="card-title" style={{ textAlign: 'center' }}>Total Budget</h4>
+          <h1 class="card-text" style={{ textAlign: 'center', fontWeight: 'bold' }}>$1000</h1>
+          <h4 class="card-title" style={{ textAlign: 'center' }}> Budget Remaining</h4>
+          <h1 class="card-text" style={{ textAlign: 'center', fontWeight: 'bold' }}>$400</h1>
+        </div>
+
+        <PieChart
+          data={PieData}
+          width={screenWidth - 300}
+          height={300}
+          chartConfig={chartConfig}
+          accessor={"population"}
+          backgroundColor={"transparent"}
+        />
+      </div>
+      <div class="card text-white bg-primary mb-3" style={{paddingTop:10, paddingBottom: 10}}>
+        <h4 style={{ fontWeight: 'bold' }}>Transactions</h4>
+      </div>
+      <View style={styles.whiteBackground}>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Transaction Name:</th>
+              <th scope="col">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Default</th>
+              <td>Column content</td>
+            </tr>
+            <tr>
+              <th scope="row">Default</th>
+              <td>Column content</td>
+            </tr>
+            <tr>
+              <th scope="row">Default</th>
+              <td>Column content</td>
+            </tr>
+            <tr>
+              <th scope="row">Default</th>
+              <td>Column content</td>
+            </tr>
+            <tr>
+              <th scope="row">Default</th>
+              <td>Column content</td>
+            </tr>
+          </tbody>
+        </table>
       </View>
     </View>
   )
@@ -300,74 +341,21 @@ const BudgetScreen = ({ navigation }) => {
   )
 }
 const styles = StyleSheet.create({
-  screen: {
-    flexDirection: 'row',
-    flexWrap: "wrap",
-    height: '100%',
+  alignedText: {
+    textAlign: 'center',
   },
-  topScrn: {
-    paddingTop: 50,
-    width: '100%',
-    height: '10%',
-    backgroundColor: '#33d651',
-  },
-  topLeftScrn: {
-    paddingTop: 50,
-    width: '75%',
-    height: '15.5%',
-    backgroundColor: '#33d651',
-  },
-  topRightScrn: {
-    paddingTop: 50,
-    height: '15.5%',
-    width: '25%',
-    backgroundColor: '#33d651',
-  },
-  scrollView: {
-    marginHorizontal: 20,
-  },
-  middleScrnHome: {
-    width: "100%",
-    height: "74%",
-    borderWidth: 1,
-    borderColor: "green",
-  },
-  middleScrn: {
-    width: "100%",
-    height: "79%",
-    borderWidth: 1,
-    borderColor: "green",
-  },
-  bottomScrnBoxes: {
-    width: '25%',
-    height: '15%',
-    borderWidth: 1,
-    borderColor: "green",
-  },
-  Text: {
-    color: 'black',
-    fontSize: 24,
+  alignedText_Bold: {
+    textAlign: 'center',
     fontWeight: 'bold',
-    textAlign: "center",
   },
-  Imagesource: {
-    height: 100,
-    width: 102,
-    resizeMode: 'stretch',
+  homeBudget: {
+    width: 300,
+    height: 300,
+    paddingLeft: 40
   },
-  ProfileImage: {
-    height: 90,
-    width: 102,
-    resizeMode: 'stretch',
-  },
-  buttonContainer: {
-    height:100,
-    width:"100%",
-    marginTop: "60%",
-    alignItems: 'center',
-    justifyContent: 'center',
+  whiteBackground: {
+    backgroundColor: "white"
   }
-
 });
 
 const PieData = [
@@ -419,7 +407,7 @@ const chartConfig = {
   color: (opacity = 1) => `rgba(97, 97, 97, ${opacity})`,
   strokeWidth: 1, // optional, default 3
   barPercentage: .75,
-  useShadowColorFromDataset: false // optional
+  useShadowColorFromDataset: false, // optional
 };
 
 const BarData = {

@@ -8,7 +8,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useState, useEffect } from 'react';
 import { usePlaidLink } from 'react-plaid-link';
-import { saveBalances, getBalances, getLinkToken } from "./Data";
+import {saveBalances, getBalances, getLinkToken, getTransactions} from "./Data";
 import "bootswatch/dist/yeti/bootstrap.min.css";
 
 const axios = require('axios');
@@ -27,6 +27,7 @@ export default function App() {
   }, [])
   const [accessToken, setAccessToken] = useState(null);
   const [balance, setBalance] = useState(null);
+  const [transaction, setTransaction] = useState(null);
 
   const { open, ready } = usePlaidLink({
     token: linkToken,
@@ -40,6 +41,7 @@ export default function App() {
   useEffect(() => {
     if (accessToken) {
       getBalances(accessToken).then(b => setBalance(b));
+      getTransactions(accessToken).then(t => setTransaction(t));
     }
   }, [accessToken]);
 

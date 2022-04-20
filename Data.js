@@ -19,6 +19,16 @@ export function getBalances(accessToken) {
     }
 }
 
+export function getTransactions(accessToken) {
+    if (accessToken) {
+        return axios.post(API_URL + "getTransaction",
+        {"access_token": accessToken})
+        .then(response => response.data);
+    } else {
+        return new Promise(() => null);
+    }
+}
+
 // Gets the balances saved to localStorage
 export function getSavedBalances() {
     let balance = JSON.stringify(localStorage.getItem(BALANCE_NAME));

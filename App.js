@@ -178,8 +178,14 @@ const HomeScreen = ({ navigation }) => {
                 </a>
               </li>
               <li class="nav-item">
+              <TouchableOpacity 
+              onPress={() =>
+            navigation.navigate('TransactionScreen')}
+          style={styles.TouchableOpacity}>
                 <a class="nav-link" href="#">Transaction</a>
+                </TouchableOpacity>
               </li>
+              
               <li class="nav-item">
                 <a class="nav-link" href="#">Graphs</a>
               </li>
@@ -250,48 +256,96 @@ const HomeScreen = ({ navigation }) => {
 }
 const TransactionScreen = ({ navigation }) => {
   return (
-    <View style={styles.screen}>
-      <View style={styles.topScrn}>
-        <Text style={styles.Text}>Transactions:</Text>
-        <StatusBar style="auto" />
-      </View>
-      <View style={styles.middleScrn}>
-        <ScrollView style={styles.scrollView}>
-          <Text>Transaction Stuff</Text>
-        </ScrollView>
-      </View>
-      <View style={styles.bottomScrnBoxes}>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('HomeScreen')}
-          style={styles.TouchableOpacity}>
-          <Image style={styles.Imagesource} source={require('./logos/4.png')}>
-          </Image>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.bottomScrnBoxes}>
-        <TouchableOpacity>
-          <Image style={styles.Imagesource} source={require('./logos/1.png')}>
-          </Image>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.bottomScrnBoxes}>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('GraphScreen')}>
-          <Image style={styles.Imagesource} source={require('./logos/2.png')}>
-          </Image>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.bottomScrnBoxes}>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('BudgetScreen')}>
-          <Image style={styles.Imagesource} source={require('./logos/3.png')}>
-          </Image>
-        </TouchableOpacity>
-      </View>
+    <View style={styles.whiteBackground}>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Refinance</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Home
+                <span class="visually-hidden">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+            <TouchableOpacity 
+            onPress={() =>
+          navigation.navigate('TransactionScreen')}
+        style={styles.TouchableOpacity}>
+              <a class="nav-link" href="#">Transaction</a>
+              </TouchableOpacity>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" href="#">Graphs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Budget: What if</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <button type="button" class="btn btn-primary">Profile</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <div class="card border-light mb-3" style={{ flexDirection: 'row' }}>
+      <div class="card-body" style={{ width: 300, height: 300, paddingLeft: 40 }}>
+        <h4 class="card-title" style={{ textAlign: 'center' }}>Total Budget</h4>
+        <h1 class="card-text" style={{ textAlign: 'center', fontWeight: 'bold' }}>$1000</h1>
+        <h4 class="card-title" style={{ textAlign: 'center' }}> Budget Remaining</h4>
+        <h1 class="card-text" style={{ textAlign: 'center', fontWeight: 'bold' }}>$400</h1>
+      </div>
+
+      <PieChart
+        data={PieData}
+        width={screenWidth - 300}
+        height={300}
+        chartConfig={chartConfig}
+        accessor={"population"}
+        backgroundColor={"transparent"}
+      />
+    </div>
+    <div class="card text-white bg-primary mb-3" style={{paddingTop:10, paddingBottom: 10}}>
+      <h4 style={{ fontWeight: 'bold' }}>Transactions:</h4>
+    </div>
+    <View style={styles.whiteBackground}>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Transaction Name:</th>
+            <th scope="col">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Default</th>
+            <td>Column content</td>
+          </tr>
+          <tr>
+            <th scope="row">Default</th>
+            <td>Column content</td>
+          </tr>
+          <tr>
+            <th scope="row">Default</th>
+            <td>Column content</td>
+          </tr>
+          <tr>
+            <th scope="row">Default</th>
+            <td>Column content</td>
+          </tr>
+          <tr>
+            <th scope="row">Default</th>
+            <td>Column content</td>
+          </tr>
+        </tbody>
+      </table>
     </View>
+  </View>
   )
 }
 const BudgetScreen = ({ navigation }) => {

@@ -10,11 +10,16 @@ import { useState, useEffect } from 'react';
 import { usePlaidLink } from 'react-plaid-link';
 import {saveBalances, getBalances, getLinkToken, getTransactions} from "./Data";
 import "bootswatch/dist/yeti/bootstrap.min.css";
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 //handling back-button
-const axios = require('axios');
+const [locationKeys, setLocationKeys] = useState([]);
+const hist = useHistory();
+
+
+
+const axios = require('axios'); 
 
 const Stack = createNativeStackNavigator();
 export default function App() {

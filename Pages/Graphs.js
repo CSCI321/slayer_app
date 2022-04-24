@@ -5,6 +5,8 @@ import {
 } from "react-native-chart-kit";
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import React from 'react';
+import ReactDOM from 'react-dom'
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme} from 'victory';
 
 export default class Graphs extends React.Component {
     render() {
@@ -63,17 +65,33 @@ export default class Graphs extends React.Component {
                     chartConfig={chartConfig}
                     accessor={"population"}
                     backgroundColor={"transparent"}
+                /><VictoryChart
+                // domainPadding will add space to each side of VictoryBar to
+                // prevent it from overlapping the axis
+                theme={VictoryTheme.material}
+                domainPadding={20}
+                height ={300}
+                width ={800}
+              >
+                <VictoryAxis
+                  // tickValues specifies both the number of ticks and where
+                  // they are placed on the axis
+                  tickValues={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
+                  tickFormat={["Jan", "Feb", "Mar", "Apr","May", "Jun", "Jul","Aug","Sep","Oct","Nov","Dec"]}
                 />
-                <BarChart
-                    data={BarData}
-                    width={screenWidth}
-                    height={300}
-                    yAxisLabel="$"
-                    chartConfig={chartConfig}
-                    verticalLabelRotation={30}
-                    fromZero
-                    showValuesOnTopOfBars
+                <VictoryAxis
+                  dependentAxis
+                  // tickFormat specifies how ticks should be displayed
+                  tickFormat={(x) => (`$${x / 10}`)}
                 />
+                <VictoryBar
+                
+                barWidth={({ index }) => index * 2 + 30}
+                  data={data}
+                  x="quarter"
+                  y="earnings"
+                />
+              </VictoryChart>
             </View>
         )
     }
@@ -137,12 +155,17 @@ const chartConfig = {
     barPercentage: .75,
     useShadowColorFromDataset: false, // optional
 };
-const BarData = {
-    labels: ["January", "February", "March", "April"],
-    datasets: [
-      {
-        data: [20, 45, 28, 80]
-      }
-    ]
-  };
-
+const data = [
+    {quarter: 1, earnings: 500},
+    {quarter: 2, earnings: 600},
+    {quarter: 3, earnings: 250},
+    {quarter: 4, earnings: 130},
+    {quarter: 5, earnings: 100},
+    {quarter: 6, earnings: 900},
+    {quarter: 7, earnings: 120},
+    {quarter: 8, earnings: 800},
+    {quarter: 9, earnings: 500},
+    {quarter: 10, earnings: 300},
+    {quarter: 11, earnings: 200},
+    {quarter: 12, earnings: 1000},
+  ];

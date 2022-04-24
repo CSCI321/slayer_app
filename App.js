@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity, Button, BackHandler, Alert } from 'react-native';
 import {
   BarChart,
   PieChart
@@ -10,7 +10,10 @@ import { useState, useEffect } from 'react';
 import { usePlaidLink } from 'react-plaid-link';
 import {saveBalances, getBalances, getLinkToken, getTransactions} from "./Data";
 import "bootswatch/dist/yeti/bootstrap.min.css";
+import { useHistory } from 'react-router-dom'
 
+
+//handling back-button
 const axios = require('axios');
 
 const Stack = createNativeStackNavigator();
@@ -37,6 +40,8 @@ export default function App() {
         .then(response => setAccessToken(response.data.access_token));
     }
   });
+
+
 
   useEffect(() => {
     if (accessToken) {

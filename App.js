@@ -10,8 +10,6 @@ import { useState, useEffect } from 'react';
 import { usePlaidLink } from 'react-plaid-link';
 import {saveBalances, getBalances, getLinkToken, getTransactions} from "./Data";
 import "bootswatch/dist/yeti/bootstrap.min.css";
-import { useHistory } from 'react-router-dom'
-
 import Home from "./Pages/Home"
 import Graphs from "./Pages/Graphs"
 import Transaction from "./Pages/Transaction"

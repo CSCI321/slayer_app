@@ -10,14 +10,13 @@ import { useState, useEffect } from 'react';
 import { usePlaidLink } from 'react-plaid-link';
 import {saveBalances, getBalances, getLinkToken, getTransactions} from "./Data";
 import "bootswatch/dist/yeti/bootstrap.min.css";
-<<<<<<< Updated upstream
 import { useHistory } from 'react-router-dom'
-=======
+
 import Home from "./Pages/Home"
 import Graphs from "./Pages/Graphs"
 import Transaction from "./Pages/Transaction"
 import Budget from "./Pages/Budget"
->>>>>>> Stashed changes
+
 
 
 //handling back-button
@@ -108,4 +107,4 @@ const Logscreen = ({ navigation }) => {
       </View>
     </View>
   )
-
+}

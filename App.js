@@ -8,7 +8,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useState, useEffect } from 'react';
 import { usePlaidLink } from 'react-plaid-link';
-import {saveBalances, getBalances, getLinkToken, getTransactions} from "./Data";
+import {
+  saveBalances,
+  getBalances,
+  getLinkToken,
+  getTransactions,
+  saveTransactions,
+  getSavedBalances,
+  getSaveTransactions
+} from "./Data";
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import Home from "./Pages/Home"
 import Graphs from "./Pages/Graphs"
@@ -28,31 +36,37 @@ export default function App() {
                             in the return statement.
   */
 
-  const [linkToken, setLinkToken] = useState(null);
-  useEffect(() => {
-    getLinkToken().then(lt => setLinkToken(lt));
-  }, [])
-  const [accessToken, setAccessToken] = useState(null);
-  const [balance, setBalance] = useState(null);
-  const [transaction, setTransaction] = useState(null);
-
-  const { open, ready } = usePlaidLink({
-    token: linkToken,
-    onSuccess: (public_token, metadata) => {
-      axios.post("https://birdboombox.com/api/exchange_public_token",
-        { "public_token": public_token })
-        .then(response => console.log(response.data.access_token));
-    }
-  });
-
-
-
-  useEffect(() => {
-    if (accessToken) {
-      getBalances(accessToken).then(b => setBalance(b));
-      getTransactions(accessToken).then(t => setTransaction(t));
-    }
-  }, [accessToken]);
+  // const [linkToken, setLinkToken] = useState(null);
+  // useEffect(() => {
+  //   getLinkToken().then(lt => setLinkToken(lt));
+  // }, [])
+  // const [accessToken, setAccessToken] = useState(null);
+  // const [balance, setBalance] = useState(null);
+  // const [transaction, setTransaction] = useState(null);
+  //
+  // const { open, ready } = usePlaidLink({
+  //   token: linkToken,
+  //   onSuccess: (public_token, metadata) => {
+  //     axios.post("https://birdboombox.com/api/exchange_public_token",
+  //       { "public_token": public_token })
+  //       .then(response => console.log(response.data.access_token));
+  //   }
+  // });
+  //
+  //
+  //
+  // useEffect(() => {
+  //   if (accessToken) {
+  //     getBalances(accessToken)
+  //         .then(b => setBalance(b))
+  //         .then(b => saveBalances(b))
+  //         .then(b => console.log(getSavedBalances()));
+  //     getTransactions(accessToken)
+  //         .then(t => setTransaction(t))
+  //         .then(t => saveTransactions(t))
+  //         .then(t => console.log(getSaveTransactions()));
+  //   }
+  // }, [accessToken]);
 
   return (
     <NavigationContainer>
@@ -79,6 +93,7 @@ const Logscreen = ({ navigation }) => {
   }, [])
   const [accessToken, setAccessToken] = useState(null);
   const [balance, setBalance] = useState(null);
+  const [transaction, setTransaction] = useState(null);
 
   const { open, ready } = usePlaidLink({
     token: linkToken,
@@ -91,9 +106,22 @@ const Logscreen = ({ navigation }) => {
 
   useEffect(() => {
     if (accessToken) {
-      getBalances(accessToken).then(b => setBalance(b));
+      getBalances(accessToken)
+          .then(b => {
+            setBalance(b);
+            console.log('Balance:', b);
+            saveBalances(b);
+          });
+      // todo: do this when a button is clicked
+      getTransactions(accessToken)
+          .then(t => {
+            setTransaction(t);
+            console.log(t);
+            saveBalances(t);
+          });
     }
   }, [accessToken]);
+
   return (
     <View>
       <View>

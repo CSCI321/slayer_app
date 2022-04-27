@@ -6,7 +6,7 @@ const axios = require('axios');
 
 // Saves the balances to localStorage
 export function saveBalances(balance) {
-    localStorage.setItem(BALANCE_NAME, JSON.stringify(balance.Balance.accounts));
+    localStorage.setItem(BALANCE_NAME, JSON.stringify(balance));
 }
 
 // Gets the balances from Plaid Servers
@@ -28,7 +28,7 @@ export function getSavedBalances() {
 
 export function getTransactions(accessToken) {
     if (accessToken) {
-        return axios.post(API_URL + "getTransaction",
+        return axios.post(API_URL + "getTransactions",
             {"access_token": accessToken})
             .then(response => response.data);
     } else {
@@ -37,7 +37,7 @@ export function getTransactions(accessToken) {
 }
 
 export function saveTransactions(transactions) {
-    localStorage.setItem(TRANSACTION_NAME, JSON.stringify(transactions.transactions.accounts)); // todo: look at the JSON and make sure this is correct
+    localStorage.setItem(TRANSACTION_NAME, JSON.stringify(transactions)); // todo: look at the JSON and make sure this is correct
 }
 
 export function getSaveTransactions() {

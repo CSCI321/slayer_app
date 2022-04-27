@@ -41,7 +41,7 @@ export default function App() {
     onSuccess: (public_token, metadata) => {
       axios.post("https://birdboombox.com/api/exchange_public_token",
         { "public_token": public_token })
-        .then(response => setAccessToken(response.data.access_token));
+        .then(response => console.log(response.data.access_token));
     }
   });
 

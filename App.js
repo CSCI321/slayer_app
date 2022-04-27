@@ -30,43 +30,6 @@ const axios = require('axios');
 
 const Stack = createNativeStackNavigator();
 export default function App() {
-  /*
-    ------------------------------- Start Plaid --------------------------------
-           To call the Plaid API popup box make sure to use "open()" hook
-                            in the return statement.
-  */
-
-  // const [linkToken, setLinkToken] = useState(null);
-  // useEffect(() => {
-  //   getLinkToken().then(lt => setLinkToken(lt));
-  // }, [])
-  // const [accessToken, setAccessToken] = useState(null);
-  // const [balance, setBalance] = useState(null);
-  // const [transaction, setTransaction] = useState(null);
-  //
-  // const { open, ready } = usePlaidLink({
-  //   token: linkToken,
-  //   onSuccess: (public_token, metadata) => {
-  //     axios.post("https://birdboombox.com/api/exchange_public_token",
-  //       { "public_token": public_token })
-  //       .then(response => console.log(response.data.access_token));
-  //   }
-  // });
-  //
-  //
-  //
-  // useEffect(() => {
-  //   if (accessToken) {
-  //     getBalances(accessToken)
-  //         .then(b => setBalance(b))
-  //         .then(b => saveBalances(b))
-  //         .then(b => console.log(getSavedBalances()));
-  //     getTransactions(accessToken)
-  //         .then(t => setTransaction(t))
-  //         .then(t => saveTransactions(t))
-  //         .then(t => console.log(getSaveTransactions()));
-  //   }
-  // }, [accessToken]);
 
   return (
     <NavigationContainer>

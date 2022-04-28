@@ -9,13 +9,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useState, useEffect } from 'react';
 import { usePlaidLink } from 'react-plaid-link';
 import {
-  saveBalances,
-  getBalances,
-  getLinkToken,
-  getTransactions,
-  saveTransactions,
-  getSavedBalances,
-  getSaveTransactions
+    saveBalances,
+    getBalances,
+    getLinkToken,
+    getTransactions,
+    saveTransactions,
+    getSavedBalances,
+    getSaveTransactions, saveAccessToken
 } from "./Data";
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import Home from "./Pages/Home"
@@ -82,6 +82,7 @@ const Logscreen = ({ navigation }) => {
             console.log(t);
             saveBalances(t);
           });
+      saveAccessToken(accessToken);
     }
   }, [accessToken]);
 

@@ -80,7 +80,7 @@ const Logscreen = ({ navigation }) => {
           .then(t => {
             setTransaction(t);
             console.log(t);
-            saveBalances(t);
+            // saveTransactions(t);
           });
       saveAccessToken(accessToken);
     }

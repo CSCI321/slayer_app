@@ -55,3 +55,8 @@ export function getLinkToken() {
 export function saveAccessToken(accessToken) {
     localStorage.setItem(ACCESS_TOKEN_NAME, JSON.stringify(accessToken))
 }
+
+export function getAccessToken() {
+    let accessToken = JSON.stringify(localStorage.getItem(ACCESS_TOKEN_NAME));
+    return accessToken;
+}

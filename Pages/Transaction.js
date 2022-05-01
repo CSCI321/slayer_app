@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity
 
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import React from 'react';
+import Transactions_table from "./transactions_table";
 
 export default class Transaction extends React.Component {
     render(){
@@ -54,6 +55,7 @@ export default class Transaction extends React.Component {
             </div>
           </div>
         </nav>
+        <Transactions_table />
         </View>
     )
     }

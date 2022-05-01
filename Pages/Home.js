@@ -5,6 +5,7 @@ import {
 } from "react-native-chart-kit";
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import React from 'react';
+import Transactions_table from "./transactions_table";
 
 export default class Home extends React.Component {
     render(){
@@ -77,38 +78,8 @@ export default class Home extends React.Component {
         <div class="card text-white bg-primary mb-3" style={{paddingTop:10, paddingBottom: 10}}>
           <h4 style={{ fontWeight: 'bold' }}>Transactions:</h4>
         </div>
-        <View style={styles.whiteBackground}>
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">Transaction Name:</th>
-                <th scope="col">Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Default</th>
-                <td>Column content</td>
-              </tr>
-              <tr>
-                <th scope="row">Default</th>
-                <td>Column content</td>
-              </tr>
-              <tr>
-                <th scope="row">Default</th>
-                <td>Column content</td>
-              </tr>
-              <tr>
-                <th scope="row">Default</th>
-                <td>Column content</td>
-              </tr>
-              <tr>
-                <th scope="row">Default</th>
-                <td>Column content</td>
-              </tr>
-            </tbody>
-          </table>
-        </View>
+      {/* todo: add transactions table here*/}
+        <Transactions_table />
       </View>
     )
     }

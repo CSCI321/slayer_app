@@ -4,6 +4,7 @@ import "bootswatch/dist/yeti/bootstrap.min.css";
 import React from 'react';
 import Transactions_table from "./transactions_table";
 
+
 export default class Transaction extends React.Component {
     render(){
     return (

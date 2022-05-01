@@ -26,9 +26,9 @@ export function getSavedBalances() {
     return { balance }
 }
 
-export function getTransactions(accessToken) {
+export async function getTransactions(accessToken) {
     if (accessToken) {
-        return axios.post(API_URL + "getTransactions",
+        return await axios.post(API_URL + "getTransactions",
             {"access_token": accessToken})
             .then(response => response.data);
     } else {
@@ -57,6 +57,5 @@ export function saveAccessToken(accessToken) {
 }
 
 export function getAccessToken() {
-    let accessToken = JSON.stringify(localStorage.getItem(ACCESS_TOKEN_NAME));
-    return accessToken;
+    return JSON.stringify(localStorage.getItem(ACCESS_TOKEN_NAME));
 }

@@ -2,65 +2,65 @@ import { StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity
 
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import React, {useEffect, useState} from 'react';
-import {getAccessToken, getTransactions, saveBalances, saveTransactions} from "../Data";
+import {getAccessToken, getSaveTransactions, getTransactions, saveBalances, saveTransactions} from "../Data";
+const transaction_json = require('../temp_transactions.json');
+const temp_transaction = JSON.stringify(transaction_json);
 
-function plaid() {
-    console.log('Plaid Thing Starting');
-    const [accessToken, setAccessToken] = useState(getAccessToken);
-    const [transactions, setTransactions] = useState(null);
+export default function Transactions_table(props: Props) {
+    const [transactions, setTransactions] = useState(getSaveTransactions);
 
+    function refreshTransactions() {
+        console.log('plaid');
+        const accessToken = getAccessToken();
+        console.log(accessToken);
 
-    useEffect( () => {
         if (accessToken) {
             getTransactions(accessToken)
                 .then(t => {
                     setTransactions(t);
+                    console.log(t);
                     saveTransactions(t);
                 });
         }
-    }, [accessToken]);
-}
-
-export default class Transactions_table extends React.Component {
-    render() {
-        return (
-            <View style={styles.whiteBackground}>
-                <div class={"m-3"}>
-                    <Button variant="primary" onClick={plaid}>Refresh Transactions</Button>{' '}
-                </div>
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th scope="col">Transaction Name:</th>
-                        <th scope="col">Amount</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">Default</th>
-                        <td>Column content</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Default</th>
-                        <td>Column content</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Default</th>
-                        <td>Column content</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Default</th>
-                        <td>Column content</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Default</th>
-                        <td>Column content</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </View>
-        )
     }
+
+    return (
+        <View style={styles.whiteBackground}>
+            <div class={"m-3"}>
+                <Button variant="primary" onClick={refreshTransactions}>Refresh Transactions</Button>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Transaction Name:</th>
+                    <th scope="col">Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">Default</th>
+                    <td>Column content</td>
+                </tr>
+                <tr>
+                    <th scope="row">Default</th>
+                    <td>Column content</td>
+                </tr>
+                <tr>
+                    <th scope="row">Default</th>
+                    <td>Column content</td>
+                </tr>
+                <tr>
+                    <th scope="row">Default</th>
+                    <td>Column content</td>
+                </tr>
+                <tr>
+                    <th scope="row">Default</th>
+                    <td>Column content</td>
+                </tr>
+                </tbody>
+            </table>
+        </View>
+    );
 }
 
 

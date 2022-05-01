@@ -18,6 +18,7 @@ import {
     getSaveTransactions, saveAccessToken
 } from "./Data";
 import "bootswatch/dist/yeti/bootstrap.min.css";
+import { useNavigate } from 'react-router-dom'
 import Home from "./Pages/Home"
 import Graphs from "./Pages/Graphs"
 import Transaction from "./Pages/Transaction"
@@ -26,7 +27,12 @@ import Budget from "./Pages/Budget"
 
 
 //handling back-button
-const axios = require('axios');
+const [locationKeys, setLocationKeys] = useState([]);
+const hist = useHistory();
+
+
+
+const axios = require('axios'); 
 
 const Stack = createNativeStackNavigator();
 export default function App() {

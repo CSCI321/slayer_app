@@ -24,15 +24,7 @@ import Graphs from "./Pages/Graphs"
 import Transaction from "./Pages/Transaction"
 import Budget from "./Pages/Budget"
 
-
-
-//handling back-button
-const [locationKeys, setLocationKeys] = useState([]);
-const hist = useHistory();
-
-
-
-const axios = require('axios'); 
+const axios = require('axios');
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -62,7 +54,6 @@ const Logscreen = ({ navigation }) => {
   }, [])
   const [accessToken, setAccessToken] = useState(null);
   const [balance, setBalance] = useState(null);
-  const [transaction, setTransaction] = useState(null);
 
   const { open, ready } = usePlaidLink({
     token: linkToken,
@@ -71,7 +62,7 @@ const Logscreen = ({ navigation }) => {
         { "public_token": public_token })
         .then(response => setAccessToken(response.data.access_token));
     }
-  });
+  })
 
   useEffect(() => {
     if (accessToken) {
@@ -81,14 +72,13 @@ const Logscreen = ({ navigation }) => {
             console.log('Balance:', b);
             saveBalances(b);
           });
-      // todo: do this when a button is clicked
+
+      saveAccessToken(accessToken);
       getTransactions(accessToken)
           .then(t => {
-            setTransaction(t);
-            console.log(t);
-            // saveTransactions(t);
+              console.log('Transactions at plaid call:', t);
           });
-      saveAccessToken(accessToken);
+
     }
   }, [accessToken]);
 

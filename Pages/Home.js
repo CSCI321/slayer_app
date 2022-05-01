@@ -79,7 +79,7 @@ export default class Home extends React.Component {
           <h4 style={{ fontWeight: 'bold' }}>Transactions:</h4>
         </div>
       {/* todo: add transactions table here*/}
-        <Transactions_table />
+        <Transactions_table/>
       </View>
     )
     }

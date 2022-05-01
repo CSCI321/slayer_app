@@ -3,13 +3,13 @@ import { StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import React, {useEffect, useState} from 'react';
 import {getAccessToken, getSaveTransactions, getTransactions, saveBalances, saveTransactions} from "../Data";
-const transaction_json = require('../temp_transactions.json');
-const temp_transaction = JSON.stringify(transaction_json);
+import alert from "react-native-web/dist/exports/Alert";
+import temp_transactions from '../temp_transactions.json'
 
-export default function Transactions_table(props: Props) {
+function Transactions_table() {
     const [transactions, setTransactions] = useState(getSaveTransactions);
 
-    function refreshTransactions() {
+    const refreshTransactions = () => {
         console.log('plaid');
         const accessToken = getAccessToken();
         console.log(accessToken);
@@ -18,52 +18,52 @@ export default function Transactions_table(props: Props) {
             getTransactions(accessToken)
                 .then(t => {
                     setTransactions(t);
+                    console.log('Transactions on button click:' + t);
                     console.log(t);
                     saveTransactions(t);
                 });
         }
     }
 
+    const test = () => {
+        console.log('this is a test');
+        alert('this is a test');
+    }
+
+
+    const DisplayData = temp_transactions.map(
+        (info) => {
+            return(
+                <tr>
+                    <td>{info.name}</td>
+                    <td>{info.date}</td>
+                    <td>{'$' + info.amount}</td>
+                </tr>
+            )
+        }
+    );
     return (
         <View style={styles.whiteBackground}>
-            <div class={"m-3"}>
-                <Button variant="primary" onClick={refreshTransactions}>Refresh Transactions</Button>
-            </div>
+                <Button title={"Refresh"} onPress={refreshTransactions}>
+                    Refresh
+                </Button>{' '}
             <table class="table table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Transaction Name:</th>
+                    <th scope="col">Date</th>
                     <th scope="col">Amount</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">Default</th>
-                    <td>Column content</td>
-                </tr>
-                <tr>
-                    <th scope="row">Default</th>
-                    <td>Column content</td>
-                </tr>
-                <tr>
-                    <th scope="row">Default</th>
-                    <td>Column content</td>
-                </tr>
-                <tr>
-                    <th scope="row">Default</th>
-                    <td>Column content</td>
-                </tr>
-                <tr>
-                    <th scope="row">Default</th>
-                    <td>Column content</td>
-                </tr>
+                    {DisplayData}
                 </tbody>
             </table>
         </View>
     );
 }
 
-
+export default Transactions_table;
 
 const styles = StyleSheet.create({
     homeBudget: {

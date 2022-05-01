@@ -6,7 +6,7 @@ import {getAccessToken, getSaveTransactions, getTransactions, saveBalances, save
 import alert from "react-native-web/dist/exports/Alert";
 import temp_transactions from '../temp_transactions.json'
 
-export default function Transactions_table(props: Props) {
+function Transactions_table() {
     const [transactions, setTransactions] = useState(getSaveTransactions);
 
     const refreshTransactions = () => {
@@ -18,6 +18,7 @@ export default function Transactions_table(props: Props) {
             getTransactions(accessToken)
                 .then(t => {
                     setTransactions(t);
+                    console.log('Transactions on button click:' + t);
                     console.log(t);
                     saveTransactions(t);
                 });
@@ -36,17 +37,15 @@ export default function Transactions_table(props: Props) {
                 <tr>
                     <td>{info.name}</td>
                     <td>{info.date}</td>
-                    <td>{info.amount}</td>
+                    <td>{'$' + info.amount}</td>
                 </tr>
             )
         }
     );
-
-
     return (
         <View style={styles.whiteBackground}>
-                <Button variant="primary" size="lg" active onClick={() => test()}>
-                    Primary button
+                <Button title={"Refresh"} onPress={refreshTransactions}>
+                    Refresh
                 </Button>{' '}
             <table class="table table-hover">
                 <thead>
@@ -64,7 +63,7 @@ export default function Transactions_table(props: Props) {
     );
 }
 
-
+export default Transactions_table;
 
 const styles = StyleSheet.create({
     homeBudget: {

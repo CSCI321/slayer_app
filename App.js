@@ -15,7 +15,7 @@ import {
     getTransactions,
     saveTransactions,
     getSavedBalances,
-    getSaveTransactions, saveAccessToken
+    getSavedTransactions, saveAccessToken, getAccessToken
 } from "./Data";
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import { useNavigate } from 'react-router-dom'
@@ -60,7 +60,13 @@ const Logscreen = ({ navigation }) => {
     onSuccess: (public_token, metadata) => {
       axios.post("https://birdboombox.com/api/exchange_public_token",
         { "public_token": public_token })
-        .then(response => setAccessToken(response.data.access_token));
+        .then(response => {
+            let token = response.data.access_token;
+            setAccessToken(token);
+            saveAccessToken(token);
+            console.log(token);
+        });
+      getTransactions();
     }
   })
 
@@ -71,14 +77,9 @@ const Logscreen = ({ navigation }) => {
             setBalance(b);
             console.log('Balance:', b);
             saveBalances(b);
-          });
-
-      saveAccessToken(accessToken);
-      getTransactions(accessToken)
-          .then(t => {
-              console.log('Transactions at plaid call:', t);
-          });
-
+          }
+      );
+      console.log(accessToken);
     }
   }, [accessToken]);
 

@@ -1,52 +1,51 @@
-import { StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity, Button } from 'react-native';
-
+import {StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity, Button} from 'react-native';
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import React, {useEffect, useState} from 'react';
-import {getAccessToken, getSaveTransactions, getTransactions, saveBalances, saveTransactions} from "../Data";
+import {getAccessToken, getSavedTransactions, getTransactions, saveBalances, saveTransactions} from "../Data";
 import alert from "react-native-web/dist/exports/Alert";
 import temp_transactions from '../temp_transactions.json'
 
+
 function Transactions_table() {
-    const [transactions, setTransactions] = useState(getSaveTransactions);
+    const [transactions, setTransactions] = useState([{}]);
 
-    const refreshTransactions = () => {
-        console.log('plaid');
-        const accessToken = getAccessToken();
-        console.log(accessToken);
+    const getTransactionsFunction = () => {
+        getTransactions();
+        let data = getSavedTransactions();
 
-        if (accessToken) {
-            getTransactions(accessToken)
-                .then(t => {
-                    setTransactions(t);
-                    console.log('Transactions on button click:' + t);
-                    console.log(t);
-                    saveTransactions(t);
-                });
-        }
-    }
-
-    const test = () => {
-        console.log('this is a test');
-        alert('this is a test');
-    }
+        setTransactions(data);
+        // try {
+        //     data.map();
+        //     console.log('Passed Map');
+        // } catch (e) {
+        //     console.log('Failed Map');
+        //     setTransactions([{}]);
+        // }
+        console.log('Hook Value:', transactions);
+    };
 
 
-    const DisplayData = temp_transactions.map(
+    const DisplayData = transactions.map(
         (info) => {
-            return(
+            return (
                 <tr>
                     <td>{info.name}</td>
                     <td>{info.date}</td>
-                    <td>{'$' + info.amount}</td>
+                    <td>{info.amount}</td>
                 </tr>
             )
         }
     );
+
+
     return (
         <View style={styles.whiteBackground}>
-                <Button title={"Refresh"} onPress={refreshTransactions}>
-                    Refresh
-                </Button>{' '}
+            <Button title={"Refresh"} onPress={() => {
+                getTransactionsFunction();
+                console.log('Refresh');
+            }}>
+                Refresh
+            </Button>{' '}
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -56,7 +55,7 @@ function Transactions_table() {
                 </tr>
                 </thead>
                 <tbody>
-                    {DisplayData}
+                {DisplayData}
                 </tbody>
             </table>
         </View>

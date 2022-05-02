@@ -7,6 +7,9 @@ import "bootswatch/dist/yeti/bootstrap.min.css";
 import React from 'react';
 import ReactDOM from 'react-dom'
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme} from 'victory';
+import Pie_graphs from './pie_graph';
+import Bar_graphs from './bar_graphs';
+
 
 export default class Graphs extends React.Component {
     render() {
@@ -58,40 +61,8 @@ export default class Graphs extends React.Component {
                         </div>
                     </div>
                 </nav>
-                <PieChart
-                    data={PieData}
-                    width={screenWidth}
-                    height={300}
-                    chartConfig={chartConfig}
-                    accessor={"population"}
-                    backgroundColor={"transparent"}
-                /><VictoryChart
-                // domainPadding will add space to each side of VictoryBar to
-                // prevent it from overlapping the axis
-                theme={VictoryTheme.material}
-                domainPadding={20}
-                height ={300}
-                width ={800}
-              >
-                <VictoryAxis
-                  // tickValues specifies both the number of ticks and where
-                  // they are placed on the axis
-                  tickValues={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
-                  tickFormat={["Jan", "Feb", "Mar", "Apr","May", "Jun", "Jul","Aug","Sep","Oct","Nov","Dec"]}
-                />
-                <VictoryAxis
-                  dependentAxis
-                  // tickFormat specifies how ticks should be displayed
-                  tickFormat={(x) => (`$${x / 10}`)}
-                />
-                <VictoryBar
-                
-                barWidth={({ index }) => index * 2 + 30}
-                  data={data}
-                  x="quarter"
-                  y="earnings"
-                />
-              </VictoryChart>
+                <Pie_graphs/>
+                <Bar_graphs/>
             </View>
         )
     }

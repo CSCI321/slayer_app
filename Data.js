@@ -1,3 +1,5 @@
+import data from "bootstrap/js/src/dom/data";
+
 const BALANCE_NAME = 'Balances';
 const TRANSACTION_NAME = 'Transactions'
 const ACCESS_TOKEN_NAME = 'Access Token';
@@ -22,27 +24,40 @@ export function getBalances(accessToken) {
 
 // Gets the balances saved to localStorage
 export function getSavedBalances() {
-    let balance = JSON.stringify(localStorage.getItem(BALANCE_NAME));
-    return { balance }
+    let balance = JSON.parse(localStorage.getItem(BALANCE_NAME));
+    return balance
 }
 
-export function getTransactions(accessToken) {
-    if (accessToken) {
-        return axios.post(API_URL + "getTransactions",
-            {"access_token": accessToken})
-            .then(response => response.data);
-    } else {
-        return new Promise(() => null);
-    }
+export function getTransactions() {
+    let startDate = '2022-01-01';
+    let endDate = '2022-12-10';
+
+
+    return axios.post("https://birdboombox.com/api/getTransactions", {
+        "access_token": getAccessToken(),
+        "start_date": startDate,
+        "end_date": endDate
+    }).then(response => {
+        if (!response.data.error) {
+            let data = response.data
+            saveTransactions(data);
+            console.log('Data from Plaid:', data);
+            return(data);
+        } else {
+            console.log('Could not get transactions right now');
+            return [];
+        }
+    });
 }
 
 export function saveTransactions(transactions) {
-    localStorage.setItem(TRANSACTION_NAME, JSON.stringify(transactions)); // todo: look at the JSON and make sure this is correct
+    localStorage.setItem(TRANSACTION_NAME, JSON.stringify(transactions));
 }
 
-export function getSaveTransactions() {
-    let transactions = JSON.stringify(localStorage.getItem(BALANCE_NAME));
-    return { transactions }
+export function getSavedTransactions() {
+    let transaction = JSON.parse(localStorage.getItem(TRANSACTION_NAME));
+    console.log('Saved Transaction:', transaction);
+    return transaction;
 }
 
 // Gets the Link_Token from Plaid Servers
@@ -53,9 +68,9 @@ export function getLinkToken() {
 
 //Saves the Access_Token to localStorage
 export function saveAccessToken(accessToken) {
-    localStorage.setItem(ACCESS_TOKEN_NAME, JSON.stringify(accessToken))
+    localStorage.setItem(ACCESS_TOKEN_NAME, accessToken);
 }
 
 export function getAccessToken() {
-    return JSON.stringify(localStorage.getItem(ACCESS_TOKEN_NAME));
+    return localStorage.getItem(ACCESS_TOKEN_NAME);
 }

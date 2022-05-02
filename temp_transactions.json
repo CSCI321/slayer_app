@@ -25,7 +25,7 @@
       "store_number": null
     },
     "merchant_name": null,
-    "name": "CREDIT CARD 3333 PAYMENT *//",
+    "name": "This is a test",
     "payment_channel": "other",
     "payment_meta": {
       "by_order_of": null,

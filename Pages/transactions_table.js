@@ -7,26 +7,37 @@ import temp_transactions from '../temp_transactions.json'
 
 
 function Transactions_table() {
-    const [transactions, setTransactions] = useState([]);
+    const [transactions, setTransactions] = useState([{}]);
 
     const getTransactionsFunction = () => {
-        const accessToken = getAccessToken();
-        console.log(accessToken);
+        getTransactions();
+        let data = getSavedTransactions();
 
-        setTransactions(getTransactions);
+        setTransactions(data);
+        // try {
+        //     data.map();
+        //     console.log('Passed Map');
+        // } catch (e) {
+        //     console.log('Failed Map');
+        //     setTransactions([{}]);
+        // }
+        console.log('Hook Value:', transactions);
     };
 
 
-    const DisplayData = temp_transactions.map(function (element) {
+    const DisplayData = transactions.map(
+        (info) => {
             return (
                 <tr>
-                    <td>{temp_transactions.name}</td>
-                    <td>{temp_transactions.date}</td>
-                    <td>{'$' + temp_transactions.amount}</td>
+                    <td>{info.name}</td>
+                    <td>{info.date}</td>
+                    <td>{info.amount}</td>
                 </tr>
             )
         }
     );
+
+
     return (
         <View style={styles.whiteBackground}>
             <Button title={"Refresh"} onPress={() => {

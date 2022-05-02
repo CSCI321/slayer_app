@@ -24,15 +24,16 @@ export function getBalances(accessToken) {
 
 // Gets the balances saved to localStorage
 export function getSavedBalances() {
-    let balance = JSON.stringify(localStorage.getItem(BALANCE_NAME));
-    return { balance }
+    let balance = JSON.parse(localStorage.getItem(BALANCE_NAME));
+    return balance
 }
 
 export function getTransactions() {
     let startDate = '2022-01-01';
     let endDate = '2022-12-10';
 
-    axios.post("https://birdboombox.com/api/getTransactions", {
+
+    return axios.post("https://birdboombox.com/api/getTransactions", {
         "access_token": getAccessToken(),
         "start_date": startDate,
         "end_date": endDate
@@ -40,21 +41,23 @@ export function getTransactions() {
         if (!response.data.error) {
             let data = response.data
             saveTransactions(data);
-            console.log(data);
+            console.log('Data from Plaid:', data);
             return(data);
         } else {
             console.log('Could not get transactions right now');
+            return [];
         }
     });
 }
 
 export function saveTransactions(transactions) {
-    localStorage.setItem(TRANSACTION_NAME, JSON.stringify(transactions)); // todo: look at the JSON and make sure this is correct
+    localStorage.setItem(TRANSACTION_NAME, JSON.stringify(transactions));
 }
 
 export function getSavedTransactions() {
-    let transactions = JSON.stringify(localStorage.getItem(BALANCE_NAME));
-    return { transactions }
+    let transaction = JSON.parse(localStorage.getItem(TRANSACTION_NAME));
+    console.log('Saved Transaction:', transaction);
+    return transaction;
 }
 
 // Gets the Link_Token from Plaid Servers

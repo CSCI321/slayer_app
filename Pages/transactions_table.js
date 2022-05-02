@@ -1,13 +1,9 @@
 import {StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity, Button} from 'react-native';
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import React, {useEffect, useState} from 'react';
-import {getAccessToken, getSaveTransactions, getTransactions, saveBalances, saveTransactions} from "../Data";
+import {getAccessToken, getSavedTransactions, getTransactions, saveBalances, saveTransactions} from "../Data";
 import alert from "react-native-web/dist/exports/Alert";
 import temp_transactions from '../temp_transactions.json'
-
-const axios = require('axios');
-const startDate = '2022-01-01';
-const endDate = '2022-12-10';
 
 
 function Transactions_table() {

@@ -15,7 +15,7 @@ import {
     getTransactions,
     saveTransactions,
     getSavedBalances,
-    getSaveTransactions, saveAccessToken, getAccessToken
+    getSavedTransactions, saveAccessToken, getAccessToken
 } from "./Data";
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import { useNavigate } from 'react-router-dom'
@@ -25,9 +25,6 @@ import Transaction from "./Pages/Transaction"
 import Budget from "./Pages/Budget"
 
 const axios = require('axios');
-
-const startDate = '2022-01-01';
-const endDate = '2022-12-10';
 
 const Stack = createNativeStackNavigator();
 export default function App() {

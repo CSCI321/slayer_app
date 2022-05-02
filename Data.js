@@ -52,7 +52,7 @@ export function saveTransactions(transactions) {
     localStorage.setItem(TRANSACTION_NAME, JSON.stringify(transactions)); // todo: look at the JSON and make sure this is correct
 }
 
-export function getSaveTransactions() {
+export function getSavedTransactions() {
     let transactions = JSON.stringify(localStorage.getItem(BALANCE_NAME));
     return { transactions }
 }

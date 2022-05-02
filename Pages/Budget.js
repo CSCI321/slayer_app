@@ -1,7 +1,9 @@
 import { StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity, Button } from 'react-native';
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import React from 'react';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme} from 'victory';
+import ReactDOM from 'react-dom';
+import Transactions_table from "./transactions_table";
+import { VictoryBar, VictoryChart, VictoryAxis } from 'victory';
 
 export default class Budget extends React.Component {
     render(){
@@ -55,14 +57,11 @@ export default class Budget extends React.Component {
         </nav>
 
         <div>
-
-          
          <h1>Budget</h1> 
           <View style={{
             height: 50, width: 100, marginTop: 15,
             gap:4, flexDirection: "row", alignContent: 'center'
           }}>
-
             <TouchableOpacity>
             <Button title="Edit Budget" />
             </TouchableOpacity>
@@ -71,39 +70,20 @@ export default class Budget extends React.Component {
             <Button title="What-if"/>  
             </TouchableOpacity>
           </View>
-          
+    
           <View>
-          <VictoryChart
-                // domainPadding will add space to each side of VictoryBar to
-                // prevent it from overlapping the axis
-                theme={VictoryTheme.material}
-                domainPadding={20}
-                height ={300}
-                width ={800}
-              >
-                <VictoryAxis
-                  // tickValues specifies both the number of ticks and where
-                  // they are placed on the axis
-                  tickValues={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
-                  tickFormat={["Jan", "Feb", "Mar", "Apr","May", "Jun", "Jul","Aug","Sep","Oct","Nov","Dec"]}
-                />
-                <VictoryAxis
-                  dependentAxis
-                  // tickFormat specifies how ticks should be displayed
-                  tickFormat={(x) => (`$${x / 10}`)}
-                />
-                <VictoryBar
-                
-                barWidth={({ index }) => index * 2 + 30}
-                  data={data}
-                  x="quarter"
-                  y="earnings"
-                />
-              </VictoryChart>
+          <VictoryBar
+            data={data}
+            // data accessor for x values
+            x="quarter"
+            // data accessor for y values
+            y="earnings"
+            />
+            
           </View>  
 
+          
         </div>
-      
       </View>
     )
     }
@@ -127,3 +107,10 @@ export default class Budget extends React.Component {
     },
   });
 const screenWidth = Dimensions.get("window").width;
+
+const data = [
+  {quarter: 1, earnings: 13000},
+  {quarter: 2, earnings: 16500},
+  {quarter: 3, earnings: 14250},
+  {quarter: 4, earnings: 19000}
+];

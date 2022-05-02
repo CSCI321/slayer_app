@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity, Button } from 'react-native';
+import {StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity, Button} from 'react-native';
 
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import React, {useEffect, useState} from 'react';
@@ -6,47 +6,51 @@ import {getAccessToken, getSaveTransactions, getTransactions, saveBalances, save
 import alert from "react-native-web/dist/exports/Alert";
 import temp_transactions from '../temp_transactions.json'
 
+const axios = require('axios');
+const startDate = '2022-01-01';
+const endDate = '2022-12-10';
+
+
 function Transactions_table() {
-    const [transactions, setTransactions] = useState(getSaveTransactions);
-
-    const refreshTransactions = () => {
-        console.log('plaid');
-        const accessToken = getAccessToken();
-        console.log(accessToken);
-
-        if (accessToken) {
-            getTransactions(accessToken)
-                .then(t => {
-                    setTransactions(t);
-                    console.log('Transactions on button click:' + t);
-                    console.log(t);
-                    saveTransactions(t);
-                });
-        }
-    }
-
-    const test = () => {
-        console.log('this is a test');
-        alert('this is a test');
-    }
+    const [transactions, setTransactions] = useState([]);
 
 
-    const DisplayData = temp_transactions.map(
-        (info) => {
-            return(
+
+    const getTransactionsFunction = () => {
+        const accessToken = 'access-sandbox-18edb14a-dfac-46bd-8cae-2e9db243520b';
+
+        axios.post("https://birdboombox.com/api/getTransactions", {
+            "access_token": getAccessToken(),
+            "start_date": startDate,
+            "end_date": endDate
+        }).then(response => {
+            let data = response.data
+            setTransactions(data);
+            saveTransactions(data);
+            console.log(data);
+        });
+    };
+
+
+
+    const DisplayData = transactions.map(function (element) {
+            return (
                 <tr>
-                    <td>{info.name}</td>
-                    <td>{info.date}</td>
-                    <td>{'$' + info.amount}</td>
+                    <td>{transactions.name}</td>
+                    <td>{transactions.date}</td>
+                    <td>{'$' + transactions.amount}</td>
                 </tr>
             )
         }
     );
     return (
         <View style={styles.whiteBackground}>
-                <Button title={"Refresh"} onPress={refreshTransactions}>
-                    Refresh
-                </Button>{' '}
+            <Button title={"Refresh"} onPress={ () => {
+                getTransactionsFunction();
+                console.log('Refresh');
+            }}>
+                Refresh
+            </Button>{' '}
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -56,7 +60,7 @@ function Transactions_table() {
                 </tr>
                 </thead>
                 <tbody>
-                    {DisplayData}
+                {DisplayData}
                 </tbody>
             </table>
         </View>

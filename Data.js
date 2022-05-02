@@ -27,9 +27,14 @@ export function getSavedBalances() {
 }
 
 export function getTransactions(accessToken) {
+    let startDate = '2022-01-01';
+    let endDate = '2022-12-10';
+
     if (accessToken) {
-        return axios.post(API_URL + "getTransactions",
-            {"access_token": accessToken})
+        return axios.post("https://birdboombox.com/api/getTransactions",
+            { "access_token": accessToken,
+                "start_date": startDate,
+                "end_date": endDate })
             .then(response => response.data);
     } else {
         return new Promise(() => null);
@@ -53,9 +58,9 @@ export function getLinkToken() {
 
 //Saves the Access_Token to localStorage
 export function saveAccessToken(accessToken) {
-    localStorage.setItem(ACCESS_TOKEN_NAME, JSON.stringify(accessToken))
+    localStorage.setItem(ACCESS_TOKEN_NAME, accessToken);
 }
 
 export function getAccessToken() {
-    return JSON.stringify(localStorage.getItem(ACCESS_TOKEN_NAME));
+    return localStorage.getItem(ACCESS_TOKEN_NAME);
 }

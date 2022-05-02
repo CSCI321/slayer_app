@@ -15,7 +15,7 @@ import {
     getTransactions,
     saveTransactions,
     getSavedBalances,
-    getSaveTransactions, saveAccessToken
+    getSaveTransactions, saveAccessToken, getAccessToken
 } from "./Data";
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import { useNavigate } from 'react-router-dom'
@@ -25,6 +25,9 @@ import Transaction from "./Pages/Transaction"
 import Budget from "./Pages/Budget"
 
 const axios = require('axios');
+
+const startDate = '2022-01-01';
+const endDate = '2022-12-10';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -60,7 +63,21 @@ const Logscreen = ({ navigation }) => {
     onSuccess: (public_token, metadata) => {
       axios.post("https://birdboombox.com/api/exchange_public_token",
         { "public_token": public_token })
-        .then(response => setAccessToken(response.data.access_token));
+        .then(response => {
+            let token = response.data.access_token;
+            setAccessToken(token);
+            saveAccessToken(token);
+            console.log(token);
+        });
+      axios.post("https://birdboombox.com/api/getTransactions", {
+          "access_token": getAccessToken(),
+          "start_date": startDate,
+          "end_date": endDate
+      }).then(response => {
+          let data = response.data
+          saveTransactions(data);
+          console.log(data);
+      })
     }
   })
 
@@ -71,14 +88,9 @@ const Logscreen = ({ navigation }) => {
             setBalance(b);
             console.log('Balance:', b);
             saveBalances(b);
-          });
-
-      saveAccessToken(accessToken);
-      getTransactions(accessToken)
-          .then(t => {
-              console.log('Transactions at plaid call:', t);
-          });
-
+          }
+      );
+      console.log(accessToken);
     }
   }, [accessToken]);
 

@@ -48,7 +48,7 @@ export default class Home extends React.Component {
                 onPress={() =>
               this.props.navigation.navigate({ name: 'BudgetScreen'})}
             style={styles.TouchableOpacity}>
-                  <a class="nav-link" href="#">Budget: What if</a>
+                  <a class="nav-link" href="#">Budget</a>
                   </TouchableOpacity>  
                 </li>
               </ul>

@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity, Button } from 'react-native';
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import React from 'react';
+import "bootswatch/dist/yeti/bootstrap.min.css";
 import ReactDOM from 'react-dom';
 import Transactions_table from "./transactions_table";
+impo
 import { VictoryBar, VictoryChart, VictoryTheme, VictoryAxis } from 'victory';
 
 export default class Budget extends React.Component {
@@ -21,7 +23,7 @@ export default class Budget extends React.Component {
                 <TouchableOpacity 
                 onPress={() =>
               this.props.navigation.navigate({ name: 'HomeScreen'})}
-            style={styles.TouchableOpacity}>
+              style={styles.TouchableOpacity}>
                   <a class="nav-link" href="#">Home</a>
                   </TouchableOpacity>
                 </li>
@@ -44,7 +46,7 @@ export default class Budget extends React.Component {
                   
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Budget: What if
+                  <a class="nav-link" href="#">Budget
                   <span class="visually-hidden">(current)</span>
                   </a>
                 </li>
@@ -58,7 +60,7 @@ export default class Budget extends React.Component {
 
         <div>
          <h1>Budget</h1> 
-          <View style={{
+          <View className="ml-5" style={{
             height: 50, width: 100, marginTop: 15,
             gap:4, flexDirection: "row", alignContent: 'center'
           }}>
@@ -70,18 +72,20 @@ export default class Budget extends React.Component {
             <Button title="What-if"/>  
             </TouchableOpacity>
           </View>
-    
+
+          {/* chart */}
           <View style={{
-            height: 350, width: 500,
+            height: 400, width: 500,
             alignContent: 'center', gap: 5,
             padding: 30
-          }}>
+          }}><div>
             <h1>This Week's Spending: </h1>
             <VictoryChart
               domainPadding={40}
             >
 
             <VictoryAxis
+              Padding={15}
               label={"Day"}  
               tickValues={[1, 2, 3, 4, 5, 6, 7]}
               tickFormat={["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]} />
@@ -95,10 +99,14 @@ export default class Budget extends React.Component {
               <VictoryBar style={{ data: { fill: 'blue'} }}
                 animate data={data} x="day" y="expenses" />
           </VictoryChart>
-           
-            
+          </div>
           </View>  
-
+          {/* interactive budget cards will go here */}
+          <View>
+            <div>
+              <Card></Card>
+            </div>
+          </View>
           
         </div>
       </View>

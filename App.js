@@ -69,15 +69,7 @@ const Logscreen = ({ navigation }) => {
             saveAccessToken(token);
             console.log(token);
         });
-      axios.post("https://birdboombox.com/api/getTransactions", {
-          "access_token": getAccessToken(),
-          "start_date": startDate,
-          "end_date": endDate
-      }).then(response => {
-          let data = response.data
-          saveTransactions(data);
-          console.log(data);
-      })
+      getTransactions();
     }
   })
 

@@ -1,3 +1,5 @@
+import data from "bootstrap/js/src/dom/data";
+
 const BALANCE_NAME = 'Balances';
 const TRANSACTION_NAME = 'Transactions'
 const ACCESS_TOKEN_NAME = 'Access Token';
@@ -26,19 +28,24 @@ export function getSavedBalances() {
     return { balance }
 }
 
-export function getTransactions(accessToken) {
+export function getTransactions() {
     let startDate = '2022-01-01';
     let endDate = '2022-12-10';
 
-    if (accessToken) {
-        return axios.post("https://birdboombox.com/api/getTransactions",
-            { "access_token": accessToken,
-                "start_date": startDate,
-                "end_date": endDate })
-            .then(response => response.data);
-    } else {
-        return new Promise(() => null);
-    }
+    axios.post("https://birdboombox.com/api/getTransactions", {
+        "access_token": getAccessToken(),
+        "start_date": startDate,
+        "end_date": endDate
+    }).then(response => {
+        if (!response.data.error) {
+            let data = response.data
+            saveTransactions(data);
+            console.log(data);
+            return(data);
+        } else {
+            console.log('Could not get transactions right now');
+        }
+    });
 }
 
 export function saveTransactions(transactions) {

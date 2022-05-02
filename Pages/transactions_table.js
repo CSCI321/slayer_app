@@ -1,5 +1,4 @@
 import {StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity, Button} from 'react-native';
-
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import React, {useEffect, useState} from 'react';
 import {getAccessToken, getSaveTransactions, getTransactions, saveBalances, saveTransactions} from "../Data";
@@ -14,38 +13,27 @@ const endDate = '2022-12-10';
 function Transactions_table() {
     const [transactions, setTransactions] = useState([]);
 
-
-
     const getTransactionsFunction = () => {
-        const accessToken = 'access-sandbox-18edb14a-dfac-46bd-8cae-2e9db243520b';
+        const accessToken = getAccessToken();
+        console.log(accessToken);
 
-        axios.post("https://birdboombox.com/api/getTransactions", {
-            "access_token": getAccessToken(),
-            "start_date": startDate,
-            "end_date": endDate
-        }).then(response => {
-            let data = response.data
-            setTransactions(data);
-            saveTransactions(data);
-            console.log(data);
-        });
+        setTransactions(getTransactions);
     };
 
 
-
-    const DisplayData = transactions.map(function (element) {
+    const DisplayData = temp_transactions.map(function (element) {
             return (
                 <tr>
-                    <td>{transactions.name}</td>
-                    <td>{transactions.date}</td>
-                    <td>{'$' + transactions.amount}</td>
+                    <td>{temp_transactions.name}</td>
+                    <td>{temp_transactions.date}</td>
+                    <td>{'$' + temp_transactions.amount}</td>
                 </tr>
             )
         }
     );
     return (
         <View style={styles.whiteBackground}>
-            <Button title={"Refresh"} onPress={ () => {
+            <Button title={"Refresh"} onPress={() => {
                 getTransactionsFunction();
                 console.log('Refresh');
             }}>

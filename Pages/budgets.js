@@ -10,17 +10,15 @@ export default function Budgets(props) {
     return (
 
         <div>
-            <div className='col-md-4'>
-                <div className="card" style={{ flexDirection: 'row' }}>
+                <div className="card">
                     <div className="card">
                         <div className="card-header">{category}</div>
                         <div className="card-body" style={{ width: 300, height: 200, paddingLeft: 40 }}>
-                        <div>{currencyFormat.format(expense)}/{currencyFormat.format(budget)}</div>
+                        <div>{currencyFormat.format(expense)} / {currencyFormat.format(budget)}</div>
                         <a href="#" class="btn btn-primary">Edit Budget</a>
                         </div>
                     </div>
                 </div>
-            </div> 
         </div> 
                 
  

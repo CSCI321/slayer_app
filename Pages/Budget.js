@@ -1,14 +1,50 @@
 import { StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity, Button } from 'react-native';
 import "bootswatch/dist/yeti/bootstrap.min.css";
-import React from 'react';
+import React,  { useEffect, useState } from 'react';
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import ReactDOM from 'react-dom';
 import Transactions_table from "./transactions_table";
 import Budgets from './budgets';
 import { VictoryBar, VictoryChart, VictoryTheme, VictoryAxis } from 'victory';
+import { DefaultTheme } from '@react-navigation/native';
 
-export default class Budget extends React.Component {
-    render(){
+
+function Budget() {
+    const [transactions, setTransactions] = useState([{}]);
+
+    const getTransactionsFunction = () => {
+        getTransactions();
+        let data = getSavedTransactions();
+
+        setTransactions(data);
+
+        console.log('Hook Value:', transactions);
+    };
+
+    let dates = {};
+    let getDay = transactions.map(
+        (info) => {
+            let day = info.date;
+            let amount = info.amount;
+            try {
+                for (let i = 0; i < day.length; i++) {
+                    let key = day[i];
+                    if (key in day) {
+                        dates[key] = dates[key] + amount;
+                    } else {
+                        dates[key] = amount;
+                    }
+
+                }
+            } catch (e) {
+                console.log('Chart Error:', e);
+            }
+
+            console.log('day:', day);
+            console.log('dates', dates);
+        }
+    );
+
     return (
       <View style={styles.whiteBackground}>
          <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -105,14 +141,27 @@ export default class Budget extends React.Component {
 
           {/* interactive budget cards will go here */}
           <View>
-          <div className='row'>
-              <Budgets
+            <div className='row'>
+              <div className="col-sm-6">
+               <Budgets
                 category={"Food"}
                 expense={150}
-                budget={225}
-              >
-              </Budgets>
-  
+                budget={225}></Budgets>
+              </div>
+
+              <div className="col-sm-6">
+                <Budgets
+                category={"Travel"}
+                expense={52}
+                budget={200}></Budgets> 
+              </div>
+
+              <div className="col-sm-6">
+                <Budgets
+                category={"Credit"}
+                expense={100}
+                budget={150}></Budgets>
+              </div>
           </div>
           </View>
           
@@ -120,7 +169,9 @@ export default class Budget extends React.Component {
       </View>
     )
     }
-  }
+
+export default Budget; 
+
   const styles = StyleSheet.create({
     homeBudget: {
       width: 300,

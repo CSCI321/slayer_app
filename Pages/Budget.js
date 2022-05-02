@@ -4,7 +4,7 @@ import React from 'react';
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import ReactDOM from 'react-dom';
 import Transactions_table from "./transactions_table";
-impo
+import Budgets from './budgets';
 import { VictoryBar, VictoryChart, VictoryTheme, VictoryAxis } from 'victory';
 
 export default class Budget extends React.Component {
@@ -101,11 +101,19 @@ export default class Budget extends React.Component {
           </VictoryChart>
           </div>
           </View>  
+
+
           {/* interactive budget cards will go here */}
           <View>
-            <div>
-              <Card></Card>
-            </div>
+          <div className='row'>
+              <Budgets
+                category={"Food"}
+                expense={150}
+                budget={225}
+              >
+              </Budgets>
+  
+          </div>
           </View>
           
         </div>

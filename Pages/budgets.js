@@ -1,22 +1,33 @@
 import React from 'react';
-import { StyleSheet, Text, Card, View, Dimensions, ScrollView, Image, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, ScrollView, Image, TouchableOpacity, Button } from 'react-native';
 
-export default function budgets(category, expense, budget) {
+export default function Budgets(props) {
+
+    const category = props.category;
+    const expense = props.expense;
+    const budget = props.budget;
+
     return (
-    <div>
-      <Card>
-          <Card.Divider>
-            <Card.Title>
-                <div>{category}</div>
-                <div>{currencyFormat.format(expense)}/{currencyFormat.format(budget)}</div>      
-            </Card.Title>
-          </Card.Divider>
-        </Card>
-    </div>
+
+        <div>
+            <div className='col-md-4'>
+                <div className="card" style={{ flexDirection: 'row' }}>
+                    <div className="card">
+                        <div className="card-header">{category}</div>
+                        <div className="card-body" style={{ width: 300, height: 200, paddingLeft: 40 }}>
+                        <div>{currencyFormat.format(expense)}/{currencyFormat.format(budget)}</div>
+                        <a href="#" class="btn btn-primary">Edit Budget</a>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div> 
+                
+ 
   )
 }
 
-export const currencyFormat = new Int16Array.NumberFormat(undefined, {
+export const currencyFormat = new Intl.NumberFormat(undefined, {
     style: 'currency', 
     currency: 'usd'
 })

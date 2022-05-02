@@ -46,25 +46,26 @@ function Pie_graphs() {
             console.log('Categories', categories);
         }
     );
+var travelAmount = categories.Travel;
 
     const data = [
         {
             name: "Food and Drink",
-            amount: 300,
+            amount: categories['Food and Drink'],
             color: "rgba(131, 167, 234, 1)",
             legendFontColor: "#7F7F7F",
             legendFontSize: 10
         },
         {
-            name: "Credit Card Payment",
-            population: 100,
+            name: "Travel",
+            amount: Math.abs(travelAmount),
             color: "yellow",
             legendFontColor: "#7F7F7F",
             legendFontSize: 10
         },
         {
-            name: "Travel",
-            amount: 400,
+            name: "Credit Card",
+            amount: categories['Credit Card'],
             color: "red",
             legendFontColor: "#7F7F7F",
             legendFontSize: 10

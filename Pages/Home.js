@@ -6,7 +6,7 @@ import {
 import "bootswatch/dist/yeti/bootstrap.min.css";
 import React from 'react';
 import Transactions_table from "./transactions_table";
-
+import Pie_graphs from './pie_graph';
 export default class Home extends React.Component {
     render(){
     return (
@@ -66,14 +66,7 @@ export default class Home extends React.Component {
             <h1 class="card-text" style={{ textAlign: 'center', fontWeight: 'bold' }}>$400</h1>
           </div>
   
-          <PieChart
-            data={PieData}
-            width={screenWidth - 300}
-            height={300}
-            chartConfig={chartConfig}
-            accessor={"population"}
-            backgroundColor={"transparent"}
-          />
+          <Pie_graphs/>
         </div>
         <div class="card text-white bg-primary mb-3" style={{paddingTop:10, paddingBottom: 10}}>
           <h4 style={{ fontWeight: 'bold' }}>Transactions:</h4>

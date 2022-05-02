@@ -56,7 +56,7 @@ function Pie_graphs() {
             legendFontSize: 10
         },
         {
-            name: "Entertainment",
+            name: "Credit Card Payment",
             population: 100,
             color: "yellow",
             legendFontColor: "#7F7F7F",
@@ -69,20 +69,6 @@ function Pie_graphs() {
             legendFontColor: "#7F7F7F",
             legendFontSize: 10
         },
-        {
-            name: "Bills",
-            amount: 1000,
-            color: "green",
-            legendFontColor: "#7F7F7F",
-            legendFontSize: 10
-        },
-        {
-            name: "Other",
-            amount: 120,
-            color: "rgb(0, 0, 255)",
-            legendFontColor: "#7F7F7F",
-            legendFontSize: 10
-        }
     ]
 
 

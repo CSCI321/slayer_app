@@ -7,6 +7,8 @@ import "bootswatch/dist/yeti/bootstrap.min.css";
 import React from 'react';
 import ReactDOM from 'react-dom'
 import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme} from 'victory';
+import Pie_graphs from './pie_graph';
+
 
 export default class Graphs extends React.Component {
     render() {
@@ -58,14 +60,8 @@ export default class Graphs extends React.Component {
                         </div>
                     </div>
                 </nav>
-                <PieChart
-                    data={PieData}
-                    width={screenWidth}
-                    height={300}
-                    chartConfig={chartConfig}
-                    accessor={"population"}
-                    backgroundColor={"transparent"}
-                /><VictoryChart
+                <Pie_graphs/>
+                <VictoryChart
                 // domainPadding will add space to each side of VictoryBar to
                 // prevent it from overlapping the axis
                 theme={VictoryTheme.material}

@@ -8,6 +8,7 @@ import {
     BarChart,
     PieChart
 } from "react-native-chart-kit";
+import {map} from "react-bootstrap/ElementChildren";
 
 function Pie_graphs() {
     const [transactions, setTransactions] = useState([{}]);
@@ -17,60 +18,58 @@ function Pie_graphs() {
         let data = getSavedTransactions();
 
         setTransactions(data);
-        // try {
-        //     data.map();
-        //     console.log('Passed Map');
-        // } catch (e) {
-        //     console.log('Failed Map');
-        //     setTransactions([{}]);
-        // }
+
         console.log('Hook Value:', transactions);
     };
 
-var foodAmount =0;
-    var getCategory = transactions.map(
+    let foodAmount =0;
+    let categories = {};
+    let getCategory = transactions.map(
         (info) => {
-            var temp = info.category;
-            console.log(temp);
+            let category = info.category;
+            let amount = info.amount;
+            try {
+                for (let i = 0; i < category.length; i++) {
+                    let key = category[i];
+                    if (key in category) {
+                        categories[key] = categories[key] + amount;
+                    } else {
+                        categories[key] = amount;
+                    }
+
+                }
+            } catch (e) {
+                console.log('Pie Chart Error:', e);
+            }
+
+            console.log('category:', category);
+            console.log('Categories', categories);
         }
     );
-getCategory;
+var travelAmount = categories.Travel;
+
     const data = [
         {
             name: "Food and Drink",
-            amount: 300,
+            amount: categories['Food and Drink'],
             color: "rgba(131, 167, 234, 1)",
             legendFontColor: "#7F7F7F",
             legendFontSize: 10
         },
         {
-            name: "Entertainment",
-            population: 100,
+            name: "Travel",
+            amount: Math.abs(travelAmount),
             color: "yellow",
             legendFontColor: "#7F7F7F",
             legendFontSize: 10
         },
         {
-            name: "Travel",
-            amount: 400,
+            name: "Credit Card",
+            amount: categories['Credit Card'],
             color: "red",
             legendFontColor: "#7F7F7F",
             legendFontSize: 10
         },
-        {
-            name: "Bills",
-            amount: 1000,
-            color: "green",
-            legendFontColor: "#7F7F7F",
-            legendFontSize: 10
-        },
-        {
-            name: "Other",
-            amount: 120,
-            color: "rgb(0, 0, 255)",
-            legendFontColor: "#7F7F7F",
-            legendFontSize: 10
-        }
     ]
 
 

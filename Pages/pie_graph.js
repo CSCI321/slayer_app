@@ -8,6 +8,7 @@ import {
     BarChart,
     PieChart
 } from "react-native-chart-kit";
+import {map} from "react-bootstrap/ElementChildren";
 
 function Pie_graphs() {
     const [transactions, setTransactions] = useState([{}]);
@@ -22,10 +23,27 @@ function Pie_graphs() {
     };
 
     let foodAmount =0;
+    let categories = {};
     let getCategory = transactions.map(
         (info) => {
-            let temp = info.category;
-            console.log('category:');
+            let category = info.category;
+            let amount = info.amount;
+            try {
+                for (let i = 0; i < category.length; i++) {
+                    let key = category[i];
+                    if (key in category) {
+                        categories[key] = categories[key] + amount;
+                    } else {
+                        categories[key] = amount;
+                    }
+
+                }
+            } catch (e) {
+                console.log('Pie Chart Error:', e);
+            }
+
+            console.log('category:', category);
+            console.log('Categories', categories);
         }
     );
 

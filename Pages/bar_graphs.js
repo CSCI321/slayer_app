@@ -23,67 +23,12 @@ function Bar_graphs() {
         // }
         console.log('Hook Value:', transactions);
     };
-
-
-console.log(transactions);
-var foodAmount =" ";
-function categories(target){
-    for (const key in target) {
-        console.log(key.category);
-        key.category
-        console.log(target.category);
-        if(key == "category"){
-            var temp = target.category
+    var getDate = transactions.map(
+        (info) => {
+            
             console.log(temp);
-            for(let i =0; i < temp.length; i++){
-                if(temp[i] =="Food and Drink"){
-                    foodAmount = foodAmount + target.amount;
-                }
-            }
         }
-    }
-}
-categories(transactions);
-console.log(foodAmount);
-    const data = [
-        {
-            name: "Food and Drink",
-            amount: 300,
-            color: "rgba(131, 167, 234, 1)",
-            legendFontColor: "#7F7F7F",
-            legendFontSize: 10
-        },
-        {
-            name: "Entertainment",
-            population: 100,
-            color: "yellow",
-            legendFontColor: "#7F7F7F",
-            legendFontSize: 10
-        },
-        {
-            name: "Travel",
-            amount: 400,
-            color: "red",
-            legendFontColor: "#7F7F7F",
-            legendFontSize: 10
-        },
-        {
-            name: "Bills",
-            amount: 1000,
-            color: "green",
-            legendFontColor: "#7F7F7F",
-            legendFontSize: 10
-        },
-        {
-            name: "Other",
-            amount: 120,
-            color: "rgb(0, 0, 255)",
-            legendFontColor: "#7F7F7F",
-            legendFontSize: 10
-        }
-    ]
-
-
+    );
     return (
         <View style={styles.whiteBackground}>
             <Button title={"Refresh"} onPress={() => {

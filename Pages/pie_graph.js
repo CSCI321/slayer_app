@@ -27,27 +27,14 @@ function Pie_graphs() {
         console.log('Hook Value:', transactions);
     };
 
-
-console.log(transactions);
-var foodAmount =" ";
-function categories(target){
-    for (const key in target) {
-        console.log(key.category);
-        key.category
-        console.log(target.category);
-        if(key == "category"){
-            var temp = target.category
+var foodAmount =0;
+    var getCategory = transactions.map(
+        (info) => {
+            var temp = info.category;
             console.log(temp);
-            for(let i =0; i < temp.length; i++){
-                if(temp[i] =="Food and Drink"){
-                    foodAmount = foodAmount + target.amount;
-                }
-            }
         }
-    }
-}
-categories(transactions);
-console.log(foodAmount);
+    );
+getCategory;
     const data = [
         {
             name: "Food and Drink",
@@ -100,7 +87,7 @@ console.log(foodAmount);
                     width={screenWidth}
                     height={300}
                     chartConfig={chartConfig}
-                    accessor={"population"}
+                    accessor={"amount"}
                     backgroundColor={"transparent"}
                 />
         </View>

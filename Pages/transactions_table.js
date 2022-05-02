@@ -14,18 +14,19 @@ function Transactions_table() {
         let data = getSavedTransactions();
 
         setTransactions(data);
-        // try {
-        //     data.map();
-        //     console.log('Passed Map');
-        // } catch (e) {
-        //     console.log('Failed Map');
-        //     setTransactions([{}]);
-        // }
+        try {
+            transactions.map((item) => {
+                console.log('Array:', item.category)
+                console.log(item.category[0]);
+            })
+        } catch (e) {
+            console.log('Could not map');
+        }
         console.log('Hook Value:', transactions);
     };
 
 
-    const DisplayData = transactions.map(
+    let DisplayData = transactions.map(
         (info) => {
             return (
                 <tr>

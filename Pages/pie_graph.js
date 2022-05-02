@@ -17,24 +17,18 @@ function Pie_graphs() {
         let data = getSavedTransactions();
 
         setTransactions(data);
-        // try {
-        //     data.map();
-        //     console.log('Passed Map');
-        // } catch (e) {
-        //     console.log('Failed Map');
-        //     setTransactions([{}]);
-        // }
+
         console.log('Hook Value:', transactions);
     };
 
-var foodAmount =0;
-    var getCategory = transactions.map(
+    let foodAmount =0;
+    let getCategory = transactions.map(
         (info) => {
-            var temp = info.category;
-            console.log(temp);
+            let temp = info.category;
+            console.log('category:');
         }
     );
-getCategory;
+
     const data = [
         {
             name: "Food and Drink",

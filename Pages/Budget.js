@@ -3,7 +3,7 @@ import "bootswatch/dist/yeti/bootstrap.min.css";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Transactions_table from "./transactions_table";
-import { VictoryBar, VictoryChart, VictoryAxis } from 'victory';
+import { VictoryBar, VictoryChart, VictoryTheme, VictoryAxis } from 'victory';
 
 export default class Budget extends React.Component {
     render(){
@@ -71,14 +71,31 @@ export default class Budget extends React.Component {
             </TouchableOpacity>
           </View>
     
-          <View>
-          <VictoryBar
-            data={data}
-            // data accessor for x values
-            x="quarter"
-            // data accessor for y values
-            y="earnings"
+          <View style={{
+            height: 350, width: 500,
+            alignContent: 'center', gap: 5,
+            padding: 30
+          }}>
+            <h1>This Week's Spending: </h1>
+            <VictoryChart
+              domainPadding={40}
+            >
+
+            <VictoryAxis
+              label={"Day"}  
+              tickValues={[1, 2, 3, 4, 5, 6, 7]}
+              tickFormat={["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]} />
+              
+            <VictoryAxis
+              dependentAxis
+              tickFormat={(y) => (`$${y / 1000}`)}  
             />
+
+          {/* data from plaid will get passed through here */}
+              <VictoryBar style={{ data: { fill: 'blue'} }}
+                animate data={data} x="day" y="expenses" />
+          </VictoryChart>
+           
             
           </View>  
 
@@ -109,8 +126,11 @@ export default class Budget extends React.Component {
 const screenWidth = Dimensions.get("window").width;
 
 const data = [
-  {quarter: 1, earnings: 13000},
-  {quarter: 2, earnings: 16500},
-  {quarter: 3, earnings: 14250},
-  {quarter: 4, earnings: 19000}
+  {day: 1, expenses: 130000},
+  {day: 2, expenses: 105000},
+  {day: 3, expenses: 72000},
+  {day: 4, expenses: 190000},
+  {day: 5, expenses: 165000},
+  {day: 6, expenses: 142000},
+  {day: 7, expenses: 190000}
 ];

@@ -34,7 +34,6 @@ function Budget() {
                     } else {
                         dates[key] = amount;
                     }
-
                 }
             } catch (e) {
                 console.log('Chart Error:', e);
@@ -140,28 +139,35 @@ function Budget() {
 
 
           {/* interactive budget cards will go here */}
-          <View>
-            <div className='row'>
-              <div className="col-sm-6">
+          <View className="align-self: center">
+            <div className='row mt-2'>
+              <div className="col-sm-5">
                <Budgets
-                category={"Food"}
+                category={"Groceries"}
                 expense={150}
                 budget={225}></Budgets>
               </div>
 
-              <div className="col-sm-6">
+              <div className="col-sm-5">
                 <Budgets
-                category={"Travel"}
+                category={"Restaurants"}
                 expense={52}
                 budget={200}></Budgets> 
-              </div>
+              </div><div class="my-4"></div>
 
-              <div className="col-sm-6">
+              <div className="col-sm-5">
                 <Budgets
-                category={"Credit"}
+                category={"Transportation"}
                 expense={100}
                 budget={150}></Budgets>
               </div>
+
+               <div className="col-sm-5">
+                <Budgets
+                category={"Payments"}
+                expense={100}
+                budget={150}></Budgets>
+              </div><div class="my-4"></div>
           </div>
           </View>
           

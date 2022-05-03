@@ -104,8 +104,7 @@ function Budget({ navigation: { navigate } }) {
             </TouchableOpacity>
             
             <TouchableOpacity>
-              <Button title="What-If" onPress={() =>
-              navigate({ name: 'whatif_budget' })}
+              <Button title="Edit Expenses"
               />
             </TouchableOpacity>
                   

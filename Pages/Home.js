@@ -7,6 +7,7 @@ import "bootswatch/dist/yeti/bootstrap.min.css";
 import React from 'react';
 import Transactions_table from "./transactions_table";
 import Pie_graphs from './pie_graph';
+
 export default class Home extends React.Component {
     render(){
     return (
